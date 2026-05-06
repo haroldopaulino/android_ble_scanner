@@ -1,68 +1,70 @@
 # BLE Insight
 
-by Harold Paulino
+**Developer:** Harold Paulino
 
-BLE Insight is a modern Android Bluetooth Low Energy scanning app built with Kotlin and Jetpack Compose. It scans nearby BLE devices, displays discovered devices in a Material 3 interface, and shows useful details such as device name, MAC address, RSSI, bond state, and discoverability status.
+BLE Insight is a professional-grade Android application designed for high-performance Bluetooth Low Energy (BLE) discovery. Built with a focus on clean architecture and reactive programming, it provides a real-time, Material 3 interface for scanning and analyzing nearby BLE devices.
 
-## Features
+## 🚀 Key Features
 
-- Bluetooth Low Energy device scanning
-- Runtime permission handling for modern Android versions
-- Material 3 Jetpack Compose interface
-- Nearby device list with signal strength details
-- Device metadata display
-- Start and stop scanning controls
-- Graceful scan error handling when Android denies privileged BLE scan access
-- Separated data, domain, and presentation layers
-- ViewModel-driven state management
-- Current Android Gradle Plugin and SDK configuration
+*   **Real-time BLE Scanning:** Continuous discovery of Bluetooth Low Energy advertisements with live RSSI updates.
+*   **Intelligent Device Management:** Automatic "upserting" and sorting of discovered devices based on signal strength (RSSI) to ensure the most relevant devices remain at the top.
+*   **Modern UI Architecture:** 
+    *   **Fixed Control Header:** Scan controls and real-time statistics (device count, strongest RSSI) remain anchored at the top for immediate access.
+    *   **Independent List Scrolling:** Only the device list scrolls, providing a superior UX compared to standard full-page scrolling.
+*   **Advanced Permission Handling:** Robust support for Android 12+ (API 31) granular Bluetooth permissions and legacy location requirements.
+*   **Error Resiliency:** Specialized handling for Bluetooth availability, system-level scan failures, and security exceptions.
 
-## Project Structure
+## 🛠 Technical Stack
+
+*   **Language:** Kotlin
+*   **UI Framework:** Jetpack Compose (Material 3)
+*   **Architecture:** Clean Architecture + MVVM (Model-View-ViewModel)
+*   **Reactive Streams:** Kotlin Coroutines & Flow (including `callbackFlow` for legacy API bridging)
+*   **Build System:** Gradle (Kotlin DSL) with Android Gradle Plugin 9.2.0
+*   **Testing:** 
+    *   **JUnit 4** for unit testing.
+    *   **Turbine** for reactive stream (Flow) verification.
+    *   **Kotlinx-Coroutines-Test** for deterministic asynchronous testing.
+
+## 🏗 Project Structure
+
+The project follows Clean Architecture principles, ensuring a strict separation of concerns:
 
 ```text
 app/src/main/java/com/harold/ble_insight
-├── data
-│   ├── ble
-│   └── repository
-├── domain
-│   ├── model
-│   └── repository
-├── presentation
-│   └── scanner
-├── ui
-│   └── theme
-├── BlePermissionProvider.kt
-└── MainActivity.kt
+├── data            # Framework implementations & API bridging
+│   ├── ble         # Android Bluetooth LE implementation (Scanner)
+│   └── repository  # Repository implementations (Data mapping)
+├── domain          # Pure business logic (Usecases, Models, Interfaces)
+│   ├── model       # Domain entities
+│   └── repository  # Repository interfaces (Abstraction)
+├── presentation    # UI & State management
+│   └── scanner     # Scanner Screen, ViewModel, and UI State
+├── ui/theme        # Material 3 Design System implementation
+├── BlePermissionProvider.kt  # Permission logic
+└── MainActivity.kt           # Entry point & Activity-scoped logic
 ```
 
-## Build Requirements
+## 🧪 Quality Assurance
 
-- Android Studio Panda 4 or newer
-- Android Gradle Plugin 9.2.0
-- Gradle 9.4.1
-- Kotlin Compose plugin 2.3.21
-- Compose BOM 2026.04.01
-- JDK 17 or newer
-- Android SDK Platform 36
-- Android SDK Build Tools 36.0.0
-- Android device with Bluetooth Low Energy support
-- Android 8.0 or newer
+Extensive unit test coverage ensures the reliability of the core logic:
 
-## Build Notes
+*   **ViewModel Tests:** Verifies state transitions, permission results, device sorting logic, and error state propagation.
+*   **Repository Tests:** Ensures correct delegation between the domain interfaces and the hardware-specific scanner implementation.
+*   **Flow Verification:** Uses Turbine to validate reactive device streams and lifecycle events.
 
-This project intentionally keeps Android Gradle Plugin 9.2.0. If Android Studio reports that the latest supported AGP version is 9.1.0, Android Studio must be upgraded instead of downgrading this project.
+## ⚙️ Build Requirements
 
-This project uses AGP 9 built-in Kotlin support. The standalone `org.jetbrains.kotlin.android` plugin is not used.
+*   **Android Studio Panda 4** or newer
+*   **Android SDK Platform 36**
+*   **Android Gradle Plugin 9.2.0**
+*   **JDK 21**
+*   **Minimum SDK:** API 26 (Android 8.0)
 
-## How to Run
+## 📖 How to Run
 
-1. Open the project in Android Studio Panda 4 or newer.
-2. Sync Gradle.
-3. Connect an Android device with Bluetooth enabled.
-4. Run the app.
-5. Grant Bluetooth permissions when prompted.
-6. Tap the scan control to discover nearby BLE devices.
-
-## Owner
-
-Harold Paulino
+1.  Open the project in **Android Studio Panda 4** or newer.
+2.  Sync Gradle dependencies.
+3.  Connect an Android device with BLE support.
+4.  Run the `:app` module.
+5.  Grant requested Bluetooth and Location permissions to begin scanning.
