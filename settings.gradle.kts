@@ -11,6 +11,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -19,6 +20,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "BLE Scanner"
+rootProject.name = "BLE Insight"
 include(":app")
- 
